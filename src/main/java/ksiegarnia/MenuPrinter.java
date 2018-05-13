@@ -39,7 +39,14 @@ public class MenuPrinter {
         System.out.println("4. Dodaj nową kategorię");
         System.out.println("5. Edytuj nazwę kategorii");
         System.out.println("6. Dodanie nowej ksiązki");
-        System.out.println("7. Powrót do głównego menu");
+        System.out.println("7. Usuwanie ksiązki/autora/categorii");
+        System.out.println("8. Powrót do głównego menu");
     }
 
+    public void printDeleteMenu() {
+        System.out.println("1. Usuń autora");
+        System.out.println("2. Usuń kategorię");
+        System.out.println("3. Usuń książkę");
+        System.out.println("4. Powrót do głównego menu");
+    }
 }

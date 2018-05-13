@@ -3,6 +3,8 @@ package ksiegarnia;
 import ksiegarnia.template.HardCoverOrderReprint;
 import ksiegarnia.template.OrderReprint;
 import ksiegarnia.template.SoftCoverOrderReprint;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class Menu {
 
@@ -25,6 +27,8 @@ public class Menu {
     private CategoryService categoryService = new CategoryService();
     private UserInteraction userInteraction = new UserInteraction();
     private static final String WRONGCHOICE = "Niewłaściwy wybór";
+    private Logger log = LoggerFactory.getLogger(Menu.class);
+
 
 
     private void menuManager() {
@@ -32,6 +36,8 @@ public class Menu {
         authorData.setAuthorList(importFiles.importAuthors());
         categoriesData.setCategoriesList(importFiles.importCategories());
         booksData.setBooksList(importFiles.importBooks());
+
+
 
         while (true) {
             menuPrinter.printMenu();
@@ -71,7 +77,7 @@ public class Menu {
                     orderReprint.orderReprint();
                     break;
                 default:
-                    System.out.println(WRONGCHOICE);
+                    log.info(WRONGCHOICE);
             }
         }
     }

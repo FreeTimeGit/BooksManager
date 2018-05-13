@@ -28,37 +28,20 @@ public class UserInteraction {
     }
 
     public String getNewBookTitle() {
-        System.out.println("Proszę podaj tytuł nowej książki");
+        System.out.println("Proszę podaj tytuł nowej książki albo (A) aby anulować");
         return scanner.nextLine();
-    }
-
-    public int getCategoryId() {
-        categoryService.showCategories(categoriesData.getCategoriesList());
-        int categoryId = 1000;
-        System.out.println("Podaj ID kategorii:");
-        boolean incorrectId = true;
-        while (incorrectId) {
-            String categoryIdString = scanner.nextLine();
-            try {
-                categoryId = Integer.parseInt(categoryIdString);
-                idChecker.correctIdForCategories(categoriesData.getCategoriesList(), categoryId);
-                incorrectId = false;
-            } catch (NumberFormatException e) {
-                System.out.println("Podaj ID jako liczbę:");
-            } catch (NoSuchIdException e) {
-                System.out.println("Nie posiadamy takiego ID! Podaj jeszcze raz:");
-            }
-        }
-        return categoryId;
     }
 
     public int getAuthorId() {
         authorService.showAuthors(authorData.getAuthorList());
         int id = 1000;
-        System.out.println("Podaj ID autora:");
+        System.out.println("Podaj ID autora albo (A) aby anulować");
         boolean incorrectId = true;
         while (incorrectId) {
             String idToParse = scanner.nextLine();
+            if(idToParse.equalsIgnoreCase("a")){
+                throw new AbortActionException();
+            }
             try {
                 id = Integer.parseInt(idToParse);
                 idChecker.correctIdForAuthors(authorData.getAuthorList(), id);
@@ -111,8 +94,12 @@ public class UserInteraction {
 
     public String getNewCategoryName() {
         categoryService.showCategories(categoriesData.getCategoriesList());
-        System.out.println("Podaj nazwę nowej kategorii:");
-        return scanner.nextLine();
+        System.out.println("Podaj nazwę nowej kategorii albo (A) aby anulować");
+        String categoryName = scanner.nextLine();
+        if(categoryName.equalsIgnoreCase("a")){
+            throw new AbortActionException();
+        }
+        return categoryName;
     }
 
     public int getNewCategoryPriorityNumber() {
@@ -151,8 +138,11 @@ public class UserInteraction {
         boolean incorrectId = true;
         while (incorrectId) {
             booksPrinter.showBooksForEditTitle(booksData.getBooksList());
-            System.out.println("Podaj ID książki:");
+            System.out.println("Podaj ID książki albo (A) aby anulować");
             String stringBookId = scanner.nextLine();
+            if (stringBookId.equalsIgnoreCase("a")) {
+                throw new AbortActionException();
+            }
             try {
                 bookId = Integer.parseInt(stringBookId);
                 idChecker.correctIdForBooks(booksData.getBooksList(), bookId);
@@ -164,6 +154,29 @@ public class UserInteraction {
             }
         }
         return bookId;
+    }
+
+    public int getCategoryId() {
+        categoryService.showCategories(categoriesData.getCategoriesList());
+        int categoryId = 1000;
+        System.out.println("Podaj ID kategorii albo (A) aby anulować");
+        boolean incorrectId = true;
+        while (incorrectId) {
+            String categoryIdString = scanner.nextLine();
+            if (categoryIdString.equalsIgnoreCase("a")) {
+                throw new AbortActionException();
+            }
+            try {
+                categoryId = Integer.parseInt(categoryIdString);
+                idChecker.correctIdForCategories(categoriesData.getCategoriesList(), categoryId);
+                incorrectId = false;
+            } catch (NumberFormatException e) {
+                System.out.println("Podaj ID jako liczbę:");
+            } catch (NoSuchIdException e) {
+                System.out.println("Nie posiadamy takiego ID! Podaj jeszcze raz:");
+            }
+        }
+        return categoryId;
     }
 
     private String getIsbn() {

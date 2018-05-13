@@ -11,6 +11,7 @@ public class EditMenu {
     private BooksFunctions booksFunctions = new BooksFunctions();
     private BooksData booksData = BooksData.getInstance();
     private AuthorData authorData = AuthorData.getInstance();
+    private CategoriesData categoriesData = CategoriesData.getInstance();
     private CategoryService categoryService = new CategoryService();
     private AuthorService authorService = new AuthorService();
 
@@ -39,6 +40,9 @@ public class EditMenu {
                     addingBookManager();
                     break;
                 case 7:
+                    deletingManager();
+                    break;
+                case 8:
                     exit = true;
                     break;
                 default:
@@ -47,35 +51,99 @@ public class EditMenu {
         }
     }
 
+    private void deletingManager() {
+        while (true) {
+            menuPrinter.printDeleteMenu();
+            int choice = userInteraction.getNumber();
+            switch (choice) {
+                case 1:
+                    deletingAuthorManager();
+                    break;
+                case 2:
+                    deletingCategoryManager();
+                    break;
+                case 3:
+                    deletingBookManager();
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Zły wybór");
+            }
+        }
+    }
+
+    private void deletingBookManager() {
+        try {
+            int bookId = userInteraction.getBookId();
+            booksData.getBooksList().remove(bookId - 1);
+        } catch (AbortActionException e) {
+            e.getMessage();
+        }
+    }
+
+    private void deletingCategoryManager() {
+        try {
+            int categoryId = userInteraction.getCategoryId();
+            categoriesData.getCategoriesList().remove(categoryId - 1);
+        } catch (AbortActionException e) {
+            e.getMessage();
+        }
+    }
+
+    private void deletingAuthorManager() {
+        try {
+            int authorId = userInteraction.getAuthorId();
+            authorData.getAuthorList().remove(authorId - 1);
+        } catch (AbortActionException e) {
+            e.getMessage();
+        }
+    }
+
     private void addingBookManager() {
-        Book book = userInteraction.getBookInformation();
-        booksData.getBooksList().add(book);
+        try {
+            Book book = userInteraction.getBookInformation();
+            booksData.getBooksList().add(book);
+        } catch (AbortActionException e) {
+            e.getMessage();
+        }
 
     }
 
     private void editingCategoryManager() {
-        int categoryId = userInteraction.getCategoryId();
-        String newCategory = userInteraction.getNewRandomNameOrAbort();
-        if (newCategory.equalsIgnoreCase("a"))
-            return;
-        categoryService.editCategoryName(newCategory, categoryId);
+        try {
+            int categoryId = userInteraction.getCategoryId();
+            String newCategory = userInteraction.getNewCategoryName();
+            if (newCategory.equalsIgnoreCase("a"))
+                return;
+            categoryService.editCategoryName(newCategory, categoryId);
+        } catch (AbortActionException e) {
+            e.getMessage();
+        }
     }
 
     private void addingNewCategoryManager() {
-        String newCategory = userInteraction.getNewCategoryName();
-        int priorityNumber = userInteraction.getNewCategoryPriorityNumber();
-        categoryService.addNewCategory(newCategory, priorityNumber);
+        try {
+            String newCategory = userInteraction.getNewCategoryName();
+            int priorityNumber = userInteraction.getNewCategoryPriorityNumber();
+            categoryService.addNewCategory(newCategory, priorityNumber);
+        } catch (AbortActionException e) {
+            e.getMessage();
+        }
     }
 
     private void editingAuthorAgeManager() {
-        int authorID = userInteraction.getAuthorId();
-        int parsedNewAge = userInteraction.getNewAge();
-        authorService.editAuthorName(authorData.getAuthorList(), authorID, parsedNewAge);
+        try {
+            int authorID = userInteraction.getAuthorId();
+            int parsedNewAge = userInteraction.getNewAge();
+            authorService.editAuthorName(authorData.getAuthorList(), authorID, parsedNewAge);
+        } catch (AbortActionException e) {
+            e.getMessage();
+        }
     }
 
     private void editingBookTitleManager() {
         int bookId = userInteraction.getBookId();
-
         String newTitle = userInteraction.getNewBookTitle();
         if (newTitle.equalsIgnoreCase("a"))
             return;
