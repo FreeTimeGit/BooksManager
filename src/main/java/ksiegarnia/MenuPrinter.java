@@ -10,11 +10,9 @@ public class MenuPrinter {
         System.out.println("3. Wybierz sposób wyświetlania");
         System.out.println("4. Wyświetl książki wg:");
         System.out.println("5. Wyświetl autorów");
-        System.out.println("6. Wyświetl książki danego autora");
-        System.out.println("7. Wyświetl kategorie");
-        System.out.println("8. Wyświetl ksiązki z danej kategorii");
-        System.out.println("9. Opcje edycji");
-        System.out.println("10. Exportuj dane");
+        System.out.println("6. Wyświetl kategorie");
+        System.out.println("7. Opcje edycji");
+        System.out.println("8. Exportuj dane");
         System.out.println();
     }
 
@@ -29,7 +27,9 @@ public class MenuPrinter {
         System.out.println("2. Wyświetl ksiązki posortowane wg roku rosnąco");
         System.out.println("3. Wyświetl ksiązki posortowane wg roku malejąco");
         System.out.println("4. Wyświetl ksiązki z kategorii wzorce projektowe");
-        System.out.println("5. Powrót do głównego menu");
+        System.out.println("5. Wyświetl ksiązki dla danego autora");
+        System.out.println("6. Wyświetl ksiązki dla danej kategorii");
+        System.out.println("7. Powrót do głównego menu");
     }
 
     public void printEditMenu() {

@@ -20,45 +20,24 @@ public class AuthorService {
         }
     }
 
-    public boolean checkForCorrectId(List<Author> authors, int choice){
-        if(choice<1||(choice-1)>=authors.size())
-            throw new NoSuchIdException();
-        return true;
-    }
-
     public void printAuthorsWithNumberOfBooks(List<Author> authorList) {
         Integer number;
         Map<Author, Integer> tempList = new HashMap<>();
         BooksData booksData = BooksData.getInstance();
         for (Author author : authorList) {
-            number = 0;
-            for (Book book : booksData.getBooksList()) {
-                if (book.getAuthorList().contains(author)) {
-                    number++;
-                }
-            }
+            number = countAuthorBooks(booksData, author);
             tempList.put(author, number);
         }
         System.out.println(tempList);
     }
 
-    public void printAuthorsWithNumberOfBooks2() {
+    private Integer countAuthorBooks(BooksData booksData, Author author) {
         int number = 0;
-        Map<Author, Integer> tempMap = new HashMap<>();
-        AuthorData authorData = AuthorData.getInstance();
-        BooksData booksData = BooksData.getInstance();
-
-        for (Author authorAuthor : authorData.getAuthorList()) {
-            for (Book book : booksData.getBooksList()) {
-                for (Author authorBook : book.getAuthorList()) {
-                    if (authorAuthor.getAuthorId() == authorBook.getAuthorId()) {
-                        number++;
-                    }
-                }
+        for (Book book : booksData.getBooksList()) {
+            if (book.getAuthorList().contains(author)) {
+                number++;
             }
-            tempMap.put(authorAuthor, number);
-            number = 0;
         }
-        System.out.println(tempMap);
+        return number;
     }
 }

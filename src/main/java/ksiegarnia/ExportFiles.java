@@ -7,12 +7,43 @@ import java.util.StringJoiner;
 
 public class ExportFiles {
 
-    public void exportAuthorData(AuthorData authorData) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("authors222.csv"))) {
+    private static final String CATEGORY_PATH = "C:\\Users\\niedb\\IdeaProjects\\Księgarnia\\src\\main\\resources\\categories.csv";
+    private static final String AUTHOR_PATH = "C:\\Users\\niedb\\IdeaProjects\\Księgarnia\\src\\main\\resources\\authors.csv";
+    private static final String BOOK_PATH = "C:\\Users\\niedb\\IdeaProjects\\Księgarnia\\src\\main\\resources\\books (2).csv";
+
+    public void exportAllData(AuthorData authorData, CategoriesData categoriesData, BooksData booksData) {
+        try {
+            exportAuthorData(authorData);
+            exportCategoryData(categoriesData);
+            exportBookData(booksData);
+        } catch (IOException e) {
+            System.out.println("Błąd zapisywania danych");
+        }
+    }
+
+    private void exportAuthorData(AuthorData authorData) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(AUTHOR_PATH))) {
             for (String element : getAuthorsDataAsStringToExport(authorData)) {
                 writer.write(element);
                 writer.newLine();
+            }
+        }
+    }
 
+    private void exportCategoryData(CategoriesData categoriesData) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(CATEGORY_PATH))) {
+            for (String element : getCategoryDataAsStringToExport(categoriesData)) {
+                writer.write(element);
+                writer.newLine();
+            }
+        }
+    }
+
+    private void exportBookData(BooksData booksData) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(BOOK_PATH))) {
+            for (String element : getBookDataAsStringToExport(booksData)) {
+                writer.write(element);
+                writer.newLine();
             }
         }
     }
@@ -29,15 +60,6 @@ public class ExportFiles {
         return listToExport;
     }
 
-    public void exportCategoryData(CategoriesData categoriesData) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("categories222.csv"))) {
-            for (String element : getCategoryDataAsStringToExport(categoriesData)) {
-                writer.write(element);
-                writer.newLine();
-            }
-        }
-    }
-
     private List<String> getCategoryDataAsStringToExport(CategoriesData categoriesData) {
         List<String> listToExport = new ArrayList<>();
         for (Category category : categoriesData.getCategoriesList()) {
@@ -48,15 +70,6 @@ public class ExportFiles {
             listToExport.add(sj.toString());
         }
         return listToExport;
-    }
-
-    public void exportBookData(BooksData booksData) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("books222.csv"))) {
-            for (String element : getBookDataAsStringToExport(booksData)) {
-                writer.write(element);
-                writer.newLine();
-            }
-        }
     }
 
     private List<String> getBookDataAsStringToExport(BooksData booksData) {

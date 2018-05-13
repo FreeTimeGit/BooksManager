@@ -10,29 +10,29 @@ import java.util.List;
 public class Book {
 
     private String title;
-    private String Isbn;
+    private String isbn;
     private int publicationYear;
     private String bookBinding;
     private List<Author> authorList;
     private Category category;
 
-    public Book(String title, String Isbn, int publicationYear, String bookBinding, List<Author> authorList, Category category) {
+    public Book(String title, String isbn, int publicationYear, String bookBinding, List<Author> authorList, Category category) {
         this.title = title;
-        this.Isbn = Isbn;
+        this.isbn = isbn;
         this.publicationYear = publicationYear;
         this.bookBinding = bookBinding;
         this.authorList = authorList;
         this.category = category;
     }
 
-    public Book(String title, String Isbn, int publicationYear) {
+    public Book(String title, String isbn, int publicationYear) {
         this.title = title;
-        this.Isbn = Isbn;
+        this.isbn = isbn;
         this.publicationYear = publicationYear;
     }
 
     @Override
     public String toString() {
-        return title + ", " + Isbn + ", " + publicationYear + ", " + authorList + ", " + category;
+        return title + ", " + isbn + ", " + publicationYear + ", " + authorList + ", " + category;
     }
 }

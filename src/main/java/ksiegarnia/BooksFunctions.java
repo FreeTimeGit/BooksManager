@@ -1,9 +1,6 @@
 package ksiegarnia;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BooksFunctions {
@@ -51,11 +48,5 @@ public class BooksFunctions {
                 .filter(book -> book.getCategory().getCategoryId() == choice)
                 .collect(Collectors.toList());
 
-    }
-
-    public boolean checkForCorrectId(List<Book> books, int choice){
-        if(choice<1||(choice-1)>=books.size())
-            throw new NoSuchIdException();
-        return true;
     }
 }

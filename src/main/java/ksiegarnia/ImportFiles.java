@@ -52,7 +52,7 @@ public class ImportFiles {
             }
         }
 
-        Category categories = new Category("", 1);
+        Category categories = null;
         for (Category categories1 : categoriesData.getCategoriesList()) {
             if (Integer.parseInt(category) == (categories1.getCategoryId())) {
                 categories = categories1;
